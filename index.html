@@ -1,0 +1,105 @@
+<html>
+<head>
+  <title>IntentKit</title>
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+<header>
+  <h1>IntentKit</h1>
+  <div class='subtitle'>The iOS tool for inter-app linking.</div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="https://github.com/intentkit/IntentKit">GitHub</a></li>
+    <li><a href="http://cocoadocs.org/docsets/IntentKit/">Documentation</a></li>
+    <li><a href="https://github.com/intentkit/IntentKit/issues">Support</a></li>
+  </ul>
+</nav>
+
+<div id='content'>
+  <h2>What is IntentKit?</h2>
+  <p>IntentKit is an open-source iOS library that makes it easier to link to other apps. It's sort of like Android's Intents or Windows Phone's Contracts.</p>
+
+  <h2>Why should I use it?</h2>
+
+  <img src="images/choices.png" class='bullet'/>
+  <div class='why-block'>
+    <h3>People like choices.</h3>
+    <p>IntentKit makes it easy for users to use their favorite third-party apps instead of Apple's defaults for tasks like browsing the web, mapping, and sending mail.</p>
+  </div>
+
+  <img src="images/code.png" class='bullet'/>
+  <div class='why-block'>
+    <h3>Readable code matters.</h3>
+    <p>Constructing URLs by hand is ugly. IntentKit replaces string manipulation with a clean, semantic API, making your code easier to work with.</p></li>
+  </div>
+
+  <img src="images/time.png" class='bullet'/>
+  <div class='why-block'>
+    <h3>Your time is valuable.</h3>
+    <p>IntentKit is maintained by the community, so you don't have to worry about manually fixing your app when a third-party app changes their URL scheme.</p>
+
+  </div>
+
+  <h2>What does it look like?</h2>
+
+  <p>IntentKit has an example project you can use to see it in action. If you have <a href="https://github.com/CocoaPods/cocoapods-try">cocoapods-try</a> installed, you can take it for a spin by typing the following command at a terminal prompt:</p>
+
+  <pre>$ pod try IntentKit</pre>
+
+  <p>Otherwise, follow the instructions on <a href="https://github.com/IntentKit/IntentKit">GitHub</a> to get the example project up and running.</p>
+
+
+  <h2>How can I get it?</h2>
+  <p>IntenKit is easiest to install using <a href="http://cocoapods.org">CocoaPods</a>. If your project already uses CocoaPods, it's as easy as adding it to your Podfile. </p>
+
+  <pre>pod "MWOpenInKit"</pre>
+
+  <p>It's also possible to use IntentKit without CocoaPods.</p>
+
+
+  <h2>How do I use it?</h2>
+  <p>To use IntentKit, you just need to instantiate a handler object, give it an action to perform, and tell the resulting presenter object to present itself. Handlers exist for common tasks such as opening web sites, displaying maps, and interacting with Twitter.</p>
+
+  <p>Here's how you'd open a URL in an external web browser on an iPhone:</p>
+
+  <pre class='block'>
+NSURL *url = [NSURL URLWithString:@"http://google.com"]
+INKBrowserHandler *browserHandler = [[INKBrowserHandler alloc] init];
+INKActivityPresenter *presenter = [browserHandler openURL:url];
+[presenter presentModalActivitySheetFromViewController:self];
+</pre>
+
+<p>If the user only has MobileSafari installed, this will open up Safari just as if you had manually called <code>[[UIApplication sharedApplication] openURL:url]</code>.</p>
+
+<p>If the user has multiple web browsers installed, this will display a modal sheet (similar to an iOS 7-style UIActivityViewController) listing each available application.</p>
+
+
+<p>The real power of IntentKit shines through when you start dealing with more complex actions, like opening up turn-by-turn directions in a mapping application.</p>
+
+<pre>
+INKMapsHandler *mapsHandler = [[INKMapsHandler alloc] init];
+mapsHandler.center = CLLocationCoordinate2DMake(42.523, -73.544);
+mapsHandler.zoom = 14;
+[mapsHandler directionsFrom:@"Washington Square Park" to:@"Lincoln Center"];
+</pre>
+
+<p>This is just a taste of what IntentKit can do. More complete usage instructions are available on <a href="https://github.com/intentkit/IntentKit">GitHub</a>. An up-to-date list of available handlers can be found on <a href="http://cocoadocs.org/docsets/MWOpenInKit/">CocoaDocs</a>.</p>
+
+
+
+  <h2>Add Your Own URL Scheme</h2>
+  <p>IntentKit might not yet support some of your favorite applications. Fortunately, adding support for a new URL scheme is easy. In most cases, it doesn't require writing any code!<p>
+
+  <p>Just fork the IntentKit <a href="http://github.com/IntentKit/IntentKit">GitHub repo</a>, create a property list detailing a URL scheme, drop in some icons, and send a pull request. For detailed instructions, check out <a href="http://github.com/IntentKit/IntentKit">GitHub</a>.</p>
+</div>
+
+  <footer>
+  IntentKit was created by <a href="http://lazerwalker.com">Mike Walker</a> and is released under the <a href="https://raw.github.com/intentkit/IntentKit/master/LICENSE">MIT License</a>.
+  </footer>
+</body>
+</html>
