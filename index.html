@@ -66,31 +66,33 @@
   <h2>How do I use it?</h2>
   <p>To use IntentKit, you just need to instantiate a handler object, give it an action to perform, and tell the resulting presenter object to present itself. Handlers exist for common tasks such as opening web sites, displaying maps, and interacting with Twitter.</p>
 
-  <p>Here's how you'd open a URL in an external web browser on an iPhone:</p>
+  <p>Here's how you'd compose an email:</p>
 
   <pre class='block'>
-NSURL *url = [NSURL URLWithString:@"http://google.com"]
-INKBrowserHandler *browserHandler = [[INKBrowserHandler alloc] init];
-INKActivityPresenter *presenter = [browserHandler openURL:url];
-[presenter presentModalActivitySheetFromViewController:self];
+INKMailHandler *mailHandler = [[INKMailHandler alloc] init];
+[[mailHandler sendMailTo:@"steve@apple.com"] presentModally];
 </pre>
 
-<p>If the user only has MobileSafari installed, this will open up Safari just as if you had manually called <code>[[UIApplication sharedApplication] openURL:url]</code>.</p>
+<p>If the user doesn't have any third-party email clients installed, this will open up an inline <code>MFMailComposeController</code>. If the user has other mail clients, this will display a modal sheet giving them a choice of all currently-installed apps. All that from two lines of code!</p>
 
-<p>If the user has multiple web browsers installed, this will display a modal sheet (similar to an iOS 7-style UIActivityViewController) listing each available application.</p>
+<img class='example' src="images/example-email.gif"/>
 
+<br/>
 
 <p>The real power of IntentKit shines through when you start dealing with more complex actions, like opening up turn-by-turn directions in a mapping application.</p>
 
-<pre>
+<p><pre>
 INKMapsHandler *mapsHandler = [[INKMapsHandler alloc] init];
 mapsHandler.center = CLLocationCoordinate2DMake(42.523, -73.544);
 mapsHandler.zoom = 14;
 [mapsHandler directionsFrom:@"Washington Square Park" to:@"Lincoln Center"];
-</pre>
+</pre></p>
 
-<p>This is just a taste of what IntentKit can do. More complete usage instructions are available on <a href="https://github.com/intentkit/IntentKit">GitHub</a>. An up-to-date list of available handlers can be found on <a href="http://cocoadocs.org/docsets/IntentKit/">CocoaDocs</a>.</p>
+<p>If you don't want to bug the user by asking them which app to use, IntentKit can be more hands-off. It can be configured to use system defaults and instead provide a configuration screen within your app's settings page to let power users change their defaults at their own leisure.</p>
 
+<img class='example' src="https://raw.githubusercontent.com/intentkit/IntentKit/master/example-defaults.gif"/>
+
+<p>IntentKit has lots of other features as well, such as a built-in in-app browser to display web sites. More complete usage instructions are available on <a href="https://github.com/intentkit/IntentKit">GitHub</a>. An up-to-date list of available handlers can be found on <a href="http://cocoadocs.org/docsets/IntentKit/">CocoaDocs</a>.</p>
 
   <h2>How Do I Learn About Changes to IntentKit?</h2>
   <p>IntentKit is under active development, so new improvements happen rather frequently. Follow <a href="https://twitter.com/IntentKit">@IntentKit</a> on Twitter to keep up-to-date on the latest news and releases.</p>
